@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Order Confirmation - Liberty Shoes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .order-confirmation {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .confirmation-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .confirmation-header i {
+            font-size: 50px;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        .confirmation-header h1 {
+            color: #2c3e50;
+            margin: 10px 0;
+            font-size: 28px;
+        }
+
+        .order-details {
+            margin: 30px 0;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .detail-label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .order-items {
+            margin: 30px 0;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .item-details {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-name {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .item-price {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .total-row {
+            border-top: 2px solid #e0e0e0;
+            margin-top: 15px;
+            padding-top: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .download-btn i {
+            font-size: 18px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .continue-shopping {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .continue-shopping:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .order-confirmation {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .item-row {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .item-details {
+                flex-direction: column;
+            }
+
+            .actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .download-btn, .continue-shopping {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            Free Shipping on Orders Above ₹999 | Cash on Delivery Available
+        </div>
+        <nav class="navbar">
+            <div class="logo">Liberty</div>
+            <ul class="nav-links">
+                <li><a href="one.html">Home</a></li>
+                <li><a href="one.html#men">Men</a></li>
+                <li><a href="one.html#women">Women</a></li>
+                <li><a href="one.html#kids">Kids</a></li>
+                <li><a href="one.html#sports">Sports</a></li>
+                <li><a href="one.html#sale">Sale</a></li>
+            </ul>
+            <div class="nav-icons">
+                <div class="search">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="account">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="wishlist">
+                    <i class="fas fa-heart"></i>
+                    <span class="count">0</span>
+                </div>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="order-confirmation">
+        <div class="confirmation-header">
+            <i class="fas fa-check-circle"></i>
+            <h1>Order Confirmed!</h1>
+            <p>Thank you for shopping with Liberty Shoes</p>
+        </div>
+
+        <div class="order-details">
+            <div class="detail-row">
+                <span class="detail-label">Order Number:</span>
+                <span class="detail-value" id="orderNumber"></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Order Date:</span>
+                <span class="detail-value" id="orderDate"></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Customer Name:</span>
+                <span class="detail-value" id="customerName"></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Email:</span>
+                <span class="detail-value" id="customerEmail"></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Phone:</span>
+                <span class="detail-value" id="customerPhone"></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Shipping Address:</span>
+                <span class="detail-value" id="shippingAddress"></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Payment Method:</span>
+                <span class="detail-value" id="paymentMethod"></span>
+            </div>
+        </div>
+
+        <div class="order-items" id="orderItems">
+            <!-- Order items will be populated by JavaScript -->
+        </div>
+
+        <div class="order-summary">
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="subtotal"></span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span id="shipping"></span>
+            </div>
+            <div class="summary-row">
+                <span>Tax</span>
+                <span id="tax"></span>
+            </div>
+            <div class="summary-row total-row">
+                <span>Total</span>
+                <span id="total"></span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="download-btn" onclick="downloadInvoice()">
+                <i class="fas fa-download"></i>
+                Download Invoice
+            </button>
+            <a href="one.html" class="continue-shopping">
+                Continue Shopping
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Function to generate a random order number
+        function generateOrderNumber() {
+            return 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        // Function to format currency
+        function formatCurrency(amount) {
+            return '₹' + amount.toFixed(2);
+        }
+
+        // Function to format date
+        function formatDate(date) {
+            return new Date(date).toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Function to get order details from localStorage
+        function getOrderDetails() {
+            const orderDetails = JSON.parse(localStorage.getItem('orderDetails')) || {
+                items: [],
+                subtotal: 0,
+                shipping: 0,
+                tax: 0,
+                total: 0,
+                address: '',
+                date: new Date()
+            };
+            return orderDetails;
+        }
+
+        // Function to populate order confirmation page
+        function populateOrderConfirmation() {
+            const orderDetails = getOrderDetails();
+            const orderNumber = generateOrderNumber();
+
+            document.getElementById('orderNumber').textContent = orderNumber;
+            document.getElementById('orderDate').textContent = formatDate(orderDetails.date);
+            
+            // Populate customer details
+            if (orderDetails.customerInfo) {
+                const { firstName, lastName, email, phone } = orderDetails.customerInfo;
+                document.getElementById('customerName').textContent = `${firstName} ${lastName}`;
+                document.getElementById('customerEmail').textContent = email;
+                document.getElementById('customerPhone').textContent = phone;
+            }
+
+            document.getElementById('shippingAddress').textContent = orderDetails.address;
+            document.getElementById('paymentMethod').textContent = formatPaymentMethod(orderDetails.paymentMethod, orderDetails.paymentDetails);
+
+            // Populate order items
+            const orderItemsContainer = document.getElementById('orderItems');
+            orderItemsContainer.innerHTML = orderDetails.items.map(item => `
+                <div class="item-row">
+                    <div class="item-details">
+                       
+                        <div>
+                            <div class="item-name">${item.name}</div>
+                            <div>Quantity: ${item.quantity}</div>
+                        </div>
+                    </div>
+                    <div class="item-price">${formatCurrency(item.price * item.quantity)}</div>
+                </div>
+            `).join('');
+
+            // Populate order summary
+            document.getElementById('subtotal').textContent = formatCurrency(orderDetails.subtotal);
+            document.getElementById('shipping').textContent = formatCurrency(orderDetails.shipping);
+            document.getElementById('tax').textContent = formatCurrency(orderDetails.tax);
+            document.getElementById('total').textContent = formatCurrency(orderDetails.total);
+        }
+
+        // Helper function to format payment method
+        function formatPaymentMethod(method, details) {
+            switch (method) {
+                case 'cod':
+                    return 'Cash on Delivery';
+                case 'upi':
+                    return `UPI (${details.app}) - ${details.upiId}`;
+                case 'card':
+                    return 'Credit/Debit Card';
+                default:
+                    return method;
+            }
+        }
+
+        // Function to download invoice
+        function downloadInvoice() {
+            const orderDetails = getOrderDetails();
+            const orderNumber = document.getElementById('orderNumber').textContent;
+
+            // Create invoice content with more details
+            let invoiceContent = `
+                Liberty Shoes - Invoice
+                ==========================================
+                Order Number: ${orderNumber}
+                Order Date: ${formatDate(orderDetails.date)}
+                
+                Customer Information:
+                ------------------------------------------
+                Name: ${orderDetails.customerInfo.firstName} ${orderDetails.customerInfo.lastName}
+                Email: ${orderDetails.customerInfo.email}
+                Phone: ${orderDetails.customerInfo.phone}
+                
+                Shipping Address:
+                ------------------------------------------
+                ${orderDetails.address}
+                
+                Payment Method:
+                ------------------------------------------
+                ${formatPaymentMethod(orderDetails.paymentMethod, orderDetails.paymentDetails)}
+                
+                Order Items:
+                ------------------------------------------
+                ${orderDetails.items.map(item => 
+                    `${item.name}
+                    Quantity: ${item.quantity}
+                    Price per item: ${formatCurrency(item.price)}
+                    Total: ${formatCurrency(item.price * item.quantity)}`
+                ).join('\n\n')}
+                
+                Order Summary:
+                ------------------------------------------
+                Subtotal: ${formatCurrency(orderDetails.subtotal)}
+                Shipping: ${formatCurrency(orderDetails.shipping)}
+                Tax (18% GST): ${formatCurrency(orderDetails.tax)}
+                Total: ${formatCurrency(orderDetails.total)}
+                ------------------------------------------
+                
+                Thank you for shopping with Liberty Shoes!
+                
+                For any queries, please contact:
+                Email: support@libertyshoes.com
+                Phone: 1800-123-4567
+            `;
+
+            // Create blob and download
+            const blob = new Blob([invoiceContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Liberty_Invoice_${orderNumber}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        // Initialize page
+        window.onload = populateOrderConfirmation;
+    </script>
+</body>
+</html> 

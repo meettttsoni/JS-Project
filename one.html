@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Liberty Shoes - Premium Footwear Collection</title>
+    <style>
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            color: #2c3e50;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .slider-prev {
+            left: 10px;
+        }
+
+        .slider-next {
+            right: 10px;
+        }
+
+        .slider-nav:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .category-slider-container {
+            position: relative;
+            padding: 0 50px;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        @media (max-width: 768px) {
+            .slider-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: url('https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&q=80') center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.85));
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #34495e;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+            animation: fadeInUp 1s ease 0.3s;
+            animation-fill-mode: both;
+        }
+
+        .hero .btn {
+            padding: 1rem 3rem;
+            background: white;
+            color: #2c3e50;
+            border: 2px solid #2c3e50;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.1);
+            animation: fadeInUp 1s ease 0.6s;
+            animation-fill-mode: both;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero .btn:hover {
+            background: #2c3e50;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 70vh;
+                padding: 3rem 1.5rem;
+                background-position: center 20%;
+            }
+
+            .hero::before {
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.9));
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero .btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        .search-sort-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 0 1rem;
+        }
+
+        .search-box {
+            flex: 0 1 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: #3498db;
+        }
+
+        .search-box::after {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #95a5a6;
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .sort-options select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .sort-options select:focus {
+            border-color: #3498db;
+        }
+
+        .sort-options label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .search-sort-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .sort-options {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        .product-image {
+            position: relative;
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 4rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .wishlist-btn i {
+            color: #ccc;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .wishlist-btn.active i {
+            color: #e74c3c;
+        }
+
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .wishlist-btn:hover i {
+            color: #e74c3c;
+        }
+
+        .notification {
+            position: fixed;
+            background-color: #2ecc71;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(46, 204, 113, 0.3);
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .wishlist-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 1000;
+            padding-top: 50px;
+        }
+
+        .wishlist-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .wishlist-header {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+
+        .wishlist-header h3 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .close-wishlist {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #95a5a6;
+            padding: 0.5rem;
+        }
+
+        .close-wishlist:hover {
+            color: #e74c3c;
+        }
+
+        .wishlist-items {
+            padding: 1rem;
+        }
+
+        .wishlist-item {
+            display: flex;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .wishlist-item:last-child {
+            border-bottom: none;
+        }
+
+        .wishlist-item-image {
+            font-size: 3rem;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .wishlist-item-details {
+            flex: 1;
+        }
+
+        .wishlist-item-details h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+        }
+
+        .wishlist-item-price {
+            margin-bottom: 1rem;
+        }
+
+        .wishlist-item-price .current-price {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .wishlist-item-price .original-price {
+            text-decoration: line-through;
+            color: #95a5a6;
+            margin-left: 0.5rem;
+        }
+
+        .wishlist-item-price .discount {
+            color: #27ae60;
+            margin-left: 0.5rem;
+        }
+
+        .wishlist-item-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .wishlist-item-actions button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wishlist-item-actions button:first-child {
+            background: #3498db;
+            color: white;
+        }
+
+        .wishlist-item-actions button:first-child:hover {
+            background: #2980b9;
+        }
+
+        .remove-wishlist {
+            background: #f8f9fa;
+            color: #e74c3c;
+        }
+
+        .remove-wishlist:hover {
+            background: #fee;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 2rem;
+            color: #95a5a6;
+        }
+
+        .empty-wishlist i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        .continue-shopping {
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-shopping:hover {
+            background: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .wishlist-content {
+                width: 95%;
+                margin: 0 10px;
+            }
+
+            .wishlist-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .wishlist-item-actions {
+                justify-content: center;
+            }
+        }
+
+        .instagram-gallery {
+            padding: 4rem 2rem;
+            background: #fff;
+        }
+
+        .instagram-gallery h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .why-choose-us {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: #3498db;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .feature-text {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .newsletter-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-text {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .newsletter-button {
+            padding: 1rem 2rem;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter-button:hover {
+            background: #34495e;
+        }
+
+        .brand-promise {
+            padding: 4rem 2rem;
+            background: #fff;
+        }
+
+        .promise-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .promise-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .promise-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .promise-title {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .promise-text {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .promise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            Free Shipping on Orders Above ₹999 | Cash on Delivery Available
+        </div>
+        <nav class="navbar">
+            <div class="logo">Liberty</div>
+            <ul class="nav-links">
+                <li><a href="one.html">Home</a></li>
+                <li><a href="#men">Men</a></li>
+                <li><a href="#women">Women</a></li>
+                <li><a href="#kids">Kids</a></li>
+                <li><a href="#sports">Sports</a></li>
+                <li><a href="#sale">Sale</a></li>
+            </ul>
+            <div class="nav-icons">
+                <div class="account" id="accountSection">
+                    <i class="fas fa-user"></i>
+                    <div class="user-info" style="display: none;">
+                        <span class="welcome-text">Welcome,</span>
+                        <span class="user-name"></span>
+                    </div>
+                    <button class="logout-btn" style="display: none;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+                <div class="wishlist">
+                    <i class="fas fa-heart"></i>
+                    <span class="count">0</span>
+                </div>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-content">
+            <div class="auth-header">
+                <h2>Welcome to Liberty</h2>
+                <button class="close-auth" onclick="toggleAuthModal()">×</button>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-group">
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" required>
+                </div>
+                <button type="submit" class="auth-button">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Step Into Style</h1>
+        <p>Discover premium footwear collection for every occasion</p>
+        <a href="#products" class="btn" style="text-decoration: none;">Shop Now</a>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-slider-container">
+            <button class="slider-nav slider-prev" onclick="slideCategories('prev')">‹</button>
+            <div class="category-grid" id="categorySlider">
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ad4354e6-f35e-4ea7-89e3-17e154b6fa65/REACTX+PEGASUS+TRAIL+5+GTX+SP.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"></div>
+                    <div class="category-content">
+                        <h3>Men's Formal</h3>
+                        <p>Office & Business Collection</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/fb2e4b9b-bdc4-4d18-acd8-ad34bd657555/NIKE+V2K+RUN.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"></div>
+                    <div class="category-content">
+                        <h3>Men's Casual</h3>
+                        <p>Everyday Comfort Wear</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/2fb6ff59-aca1-4f1f-a836-0888d4f119a6/W+NIKE+V2K+RUN.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                    <div class="category-content">
+                        <h3>Women's Heels</h3>
+                        <p>Elegant & Party Styles</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/eb311648-a679-4987-83b7-4f85ce9ce876/NIKE+V2K+RUN.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                    <div class="category-content">
+                        <h3>Women's Sandals</h3>
+                        <p>Comfort & Style Together</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/d14af056-76ba-44a2-9e84-6c64f47778cf/custom-v2k-run-shoes-by-you.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                    <div class="category-content">
+                        <h3>Running Shoes</h3>
+                        <p>Performance & Endurance</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/07257ea2-26f9-4a51-b5f2-f441c3671970/custom-v2k-run-shoes-by-you.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                    <div class="category-content">
+                        <h3>Sports Shoes</h3>
+                        <p>Basketball & Training</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/82294235-c384-4e08-bb65-897aedd00890/AIR+ZOOM+PEGASUS+41JI.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                    <div class="category-content">
+                        <h3>Kids School</h3>
+                        <p>Durable School Shoes</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/0dceb03f-c1e8-4f17-abce-0c2aac15f491/AIR+ZOOM+PEGASUS+41.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                    <div class="category-content">
+                        <h3>Baby Shoes</h3>
+                        <p>Soft & Safe First Steps</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/97565f94-62bc-4409-b529-f7f9e0a44a7b/PEGASUS+PLUS.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                    <div class="category-content">
+                        <h3>Men's Loafers</h3>
+                        <p>Premium Leather Collection</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/9c7ff379-a69f-4dc5-a979-a6de2816d2a2/W+PEGASUS+PLUS.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                    <div class="category-content">
+                        <h3>Women's Flats</h3>
+                        <p>Comfortable Daily Wear</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                  <div class="category-image"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8f3d7cf8-9a8d-41cf-b7c9-9aa6622c5612/W+AIR+ZOOM+PEGASUS+41.png" alt="" style="width: 200px; height: 200px; object-fit: contain;"" alt=""></div>
+                  <div class="category-content">
+                      <h3>Men's Comfort Wear</h3>
+                      <p>Flexible shoes</p>
+                  </div>
+              </div>
+              
+            </div>
+            <button class="slider-nav slider-next" onclick="slideCategories('next')">›</button>
+        </div>
+        <div class="slider-dots" id="categoryDots"></div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <h2 class="section-title">Featured Products</h2>
+        
+        <div class="search-sort-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+            </div>
+            <div class="sort-options">
+                <label>Sort by:</label>
+                <select id="sortSelect" onchange="sortProducts()">
+                    <option value="default">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name-asc">Name: A to Z</option>
+                    <option value="name-desc">Name: Z to A</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+            <button class="filter-btn" onclick="filterProducts('men')">Men</button>
+            <button class="filter-btn" onclick="filterProducts('women')">Women</button>
+            <button class="filter-btn" onclick="filterProducts('sports')">Sports</button>
+            <button class="filter-btn" onclick="filterProducts('kids')">Kids</button>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+            <!-- Products will be loaded here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Before Footer Sections -->
+    <section class="why-choose-us">
+        <h2 class="section-title">Why Choose Liberty</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3 class="feature-title">Fast Delivery</h3>
+                <p class="feature-text">Free shipping on orders above ₹999. Quick delivery within 3-5 business days.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-undo"></i>
+                </div>
+                <h3 class="feature-title">Easy Returns</h3>
+                <p class="feature-text">Hassle-free 10-day returns. No questions asked return policy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Secure Shopping</h3>
+                <p class="feature-text">100% secure payment gateway. Your data is always protected.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="feature-title">24/7 Support</h3>
+                <p class="feature-text">Dedicated customer support team ready to help you anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="instagram-gallery">
+        <h2>Shop Our Instagram</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/03d951e6-cf6e-48e9-8404-2b342fc2825d/W+NIKE+V2K+RUN.png" alt="Instagram post">
+                <div class="gallery-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8d41e058-bbd6-4f8f-88de-5c666ac16f6a/W+NIKE+V2K+RUN.png" alt="Instagram post">
+                <div class="gallery-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/509edbec-df90-4229-9357-6dd5a5877975/W+NIKE+V2K+RUN.png" alt="Instagram post">
+                <div class="gallery-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/3b14ec9a-7401-4684-8752-cd866afb33fb/W+NIKE+V2K+RUN.png" alt="Instagram post">
+                <div class="gallery-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/2fb6ff59-aca1-4f1f-a836-0888d4f119a6/W+NIKE+V2K+RUN.png" alt="Instagram post">
+                <div class="gallery-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/eb311648-a679-4987-83b7-4f85ce9ce876/NIKE+V2K+RUN.png" alt="Instagram post">
+                <div class="gallery-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2 class="newsletter-title">Join Our Newsletter</h2>
+            <p class="newsletter-text">Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your email">
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="brand-promise">
+        <div class="promise-grid">
+            <div class="promise-card">
+                <div class="promise-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="promise-title">Quality Assurance</h3>
+                <p class="promise-text">Every pair of shoes undergoes rigorous quality checks to ensure the best for you.</p>
+            </div>
+            <div class="promise-card">
+                <div class="promise-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="promise-title">Customer Satisfaction</h3>
+                <p class="promise-text">Your satisfaction is our top priority. We're here to serve you better.</p>
+            </div>
+            <div class="promise-card">
+                <div class="promise-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3 class="promise-title">Genuine Products</h3>
+                <p class="promise-text">100% authentic products sourced directly from manufacturers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-waves">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+            <div class="wave wave3"></div>
+        </div>
+        <div class="footer-content">
+            <div class="footer-section company-info">
+                <h2 class="footer-logo">Liberty</h2>
+                <p class="company-desc">Crafting comfort and style since 1954. Your trusted partner in premium footwear.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="app-downloads">
+                    <h4>Download Our App</h4>
+                    <div class="store-buttons">
+                        <a href="#" class="store-btn">
+                            <i class="fab fa-google-play"></i>
+                            <span>Google Play</span>
+                        </a>
+                        <a href="#" class="store-btn">
+                            <i class="fab fa-apple"></i>
+                            <span>App Store</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h3>Quick Links</h3>
+                <div class="footer-links-grid">
+                    <div class="links-column">
+                        <h4>Shop</h4>
+                        <ul>
+                            <li><a href="#men">Men's Collection</a></li>
+                            <li><a href="#women">Women's Collection</a></li>
+                            <li><a href="#kids">Kids' Collection</a></li>
+                            <li><a href="#sports">Sports</a></li>
+                            <li><a href="#sale">Sale</a></li>
+                        </ul>
+                    </div>
+                    <div class="links-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Size Guide</a></li>
+                            <li><a href="#">Shipping Info</a></li>
+                            <li><a href="#">Returns</a></li>
+                        </ul>
+                    </div>
+                    <div class="links-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Sustainability</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-section newsletter">
+                <h3>Stay Updated</h3>
+                <p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
+                <form class="newsletter-form">
+                    <div class="email-input-group">
+                        <i class="far fa-envelope"></i>
+                        <input type="email" placeholder="Your email address">
+                    </div>
+                    <button type="submit" class="subscribe-btn">
+                        Subscribe
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="payment-methods">
+                    <h4>We Accept</h4>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                        <i class="fab fa-google-pay"></i>
+                        <i class="fab fa-apple-pay"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-info">
+                <p>&copy; 2025 Liberty Shoes. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#">Terms of Service</a>
+                    <span class="separator">|</span>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+            <div class="location-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>India</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Shopping Cart</h3>
+                <button class="close-cart" onclick="toggleCart()">&times;</button>
+            </div>
+            <div id="cartItems">
+                <p style="text-align: center; color: #999; padding: 2rem;">Your cart is empty</p>
+            </div>
+            <div class="cart-total" id="cartTotal"></div>
+            <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+   <script src="app.js"></script>
+   <script src="product.js"></script>
+   <script>
+        // Auth Modal Functions
+        function toggleAuthModal() {
+            const modal = document.getElementById('authModal');
+            modal.classList.toggle('active');
+            // Default to signup tab for new users
+            if (!localStorage.getItem('registeredUsers')) {
+                switchTab('signup');
+            }
+        }
+
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.auth-tab').forEach(button => {
+                button.classList.remove('active');
+            });
+            if (tab === 'login') {
+                document.querySelector('.auth-tab:first-child').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab:last-child').classList.add('active');
+            }
+
+            // Show selected form
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            if (tab === 'login') {
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.getElementById('signupForm').classList.add('active');
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            // Email validation
+            if (!email) {
+                showNotification('Please enter your email', 'error');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+
+            // Password validation
+            if (!password) {
+                showNotification('Please enter your password', 'error');
+                return;
+            }
+
+            // Get registered users from localStorage
+            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+            
+            // Check if user exists
+            const user = registeredUsers.find(u => u.email === email);
+            
+            // If user doesn't exist, create a new user
+            if (!user) {
+                const newUser = {
+                    name: email.split('@')[0], // Use part of email as name
+                    email: email,
+                    password: password,
+                    dateRegistered: new Date().toISOString()
+                };
+                
+                registeredUsers.push(newUser);
+                localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                
+                showNotification('Account created and logged in successfully!', 'success');
+                toggleAuthModal();
+                updateUserUI(email);
+                return;
+            }
+
+            // If user exists, check password
+            if (user.password === password) {
+                showNotification('Login successful! Welcome back, ' + user.name, 'success');
+                toggleAuthModal();
+                updateUserUI(email);
+            } else {
+                showNotification('Incorrect password! Please try again.', 'error');
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+            // Name validation
+            if (!name) {
+                showNotification('Please enter your full name', 'error');
+                return;
+            }
+
+            if (name.length < 3) {
+                showNotification('Name must be at least 3 characters long', 'error');
+                return;
+            }
+
+            // Email validation
+            if (!email) {
+                showNotification('Please enter your email', 'error');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+
+            // Password validation
+            if (!password) {
+                showNotification('Please enter a password', 'error');
+                return;
+            }
+
+            if (password.length < 8) {
+                showNotification('Password must be at least 8 characters long', 'error');
+                return;
+            }
+
+            if (!hasUpperCase(password)) {
+                showNotification('Password must contain at least one uppercase letter', 'error');
+                return;
+            }
+
+            if (!hasNumber(password)) {
+                showNotification('Password must contain at least one number', 'error');
+                return;
+            }
+
+            if (!hasSpecialChar(password)) {
+                showNotification('Password must contain at least one special character (!@#$%^&*)', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match!', 'error');
+                return;
+            }
+
+            // Get existing users or initialize empty array
+            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+            
+            // Check if email already exists
+            if (registeredUsers.some(user => user.email === email)) {
+                showNotification('Email already registered! Please login.', 'error');
+                switchTab('login');
+                return;
+            }
+
+            // Add new user
+            registeredUsers.push({
+                name,
+                email,
+                password,
+                dateRegistered: new Date().toISOString()
+            });
+
+            // Save updated users array
+            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+            showNotification('Account created successfully! Please login.', 'success');
+            switchTab('login');
+            
+            // Clear signup form
+            document.getElementById('signupForm').reset();
+        }
+
+        // Helper functions for validation
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function hasUpperCase(str) {
+            return /[A-Z]/.test(str);
+        }
+
+        function hasNumber(str) {
+            return /[0-9]/.test(str);
+        }
+
+        function hasSpecialChar(str) {
+            return /[!@#$%^&*]/.test(str);
+        }
+
+        // Add input validation on typing
+        document.getElementById('signupPassword').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: hasUpperCase(password),
+                number: hasNumber(password),
+                special: hasSpecialChar(password)
+            };
+
+            // Update password requirements UI if you have one
+            // You can add visual feedback for each requirement
+        });
+
+        // Add real-time email validation
+        document.getElementById('signupEmail').addEventListener('input', function(e) {
+            const email = e.target.value.trim();
+            if (email && !isValidEmail(email)) {
+                this.setCustomValidity('Please enter a valid email address');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        // Add real-time password match validation
+        document.getElementById('signupConfirmPassword').addEventListener('input', function(e) {
+            const password = document.getElementById('signupPassword').value;
+            if (e.target.value !== password) {
+                this.setCustomValidity('Passwords do not match');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        function updateUserUI(email) {
+            // Update the user icon to show logged in state
+            const accountSection = document.getElementById('accountSection');
+            const accountIcon = accountSection.querySelector('i');
+            const userInfo = accountSection.querySelector('.user-info');
+            const userNameSpan = accountSection.querySelector('.user-name');
+            const logoutBtn = accountSection.querySelector('.logout-btn');
+            
+            // Get user name from registered users
+            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+            const user = registeredUsers.find(u => u.email === email);
+            
+            if (user) {
+                // Update icon and show name
+                accountIcon.classList.remove('fa-user');
+                accountIcon.classList.add('fa-user-check');
+                userNameSpan.textContent = user.name;
+                userInfo.style.display = 'flex';
+                logoutBtn.style.display = 'flex';
+                
+                // Change click behavior to logout
+                logoutBtn.onclick = handleLogout;
+                
+                // Store login state
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userName', user.name);
+
+                // Check for pending cart item
+                const pendingCartItem = sessionStorage.getItem('pendingCartItem');
+                if (pendingCartItem) {
+                    addToCart(parseInt(pendingCartItem));
+                    sessionStorage.removeItem('pendingCartItem');
+                    toggleAuthModal(); // Close the auth modal
+                }
+            }
+        }
+
+        function handleLogout() {
+            // Reset UI
+            const accountSection = document.getElementById('accountSection');
+            const accountIcon = accountSection.querySelector('i');
+            const userInfo = accountSection.querySelector('.user-info');
+            const logoutBtn = accountSection.querySelector('.logout-btn');
+            
+            accountIcon.classList.remove('fa-user-check');
+            accountIcon.classList.add('fa-user');
+            userInfo.style.display = 'none';
+            logoutBtn.style.display = 'none';
+            
+            // Reset click behavior to login
+            accountSection.onclick = toggleAuthModal;
+            
+            // Clear login state
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            
+            showNotification('Logged out successfully!', 'success');
+        }
+
+        // Check if user is already logged in on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                const email = localStorage.getItem('userEmail');
+                if (email) {
+                    updateUserUI(email);
+                }
+            } else {
+                // Set default click behavior to login
+                document.getElementById('accountSection').onclick = toggleAuthModal;
+            }
+        });
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Show notification
+            setTimeout(() => notification.classList.add('show'), 100);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Loader functionality
+        const loader = document.querySelector('.loader-container');
+        
+        // Show loader
+        function showLoader() {
+            loader.classList.add('active');
+        }
+        
+        // Hide loader
+        function hideLoader() {
+            loader.classList.remove('active');
+        }
+        
+        // Show loader when page starts loading and hide after 3 seconds
+        window.addEventListener('load', () => {
+            showLoader();
+            setTimeout(() => {
+                hideLoader();
+            }, 3000); // 3 seconds
+        });
+        
+        // Show loader when page is about to unload
+        window.addEventListener('beforeunload', () => {
+            showLoader();
+        });
+    </script>
+</body>
+</html>
